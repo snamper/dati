@@ -3,7 +3,7 @@
         <div class="content_wrap">
             <div class="left_arrow" @click='reduce'></div>
             <div class="desc">
-                <div class="id_">{{currenList.id}}</div>
+                <div class="id_">{{this.index+1}}</div>
                 <div class="text">
                     {{currenList.content}}
                 </div>
@@ -45,12 +45,15 @@
             axios.get('/api/Home/Index/getQ?start=1&count=9').then(res=>{
                 this.content_list = res.data;
                 this.currenList = this.content_list[this.index] ;
+                this.$nextTick(()=>{
+                    this.$emit('totalNum',this.content_list.length)
+                })
             }).catch(err=>{
                 console.log(err);
             })
         },
         mounted(){
-            this.$emit('totalNum',this.content_list.length)
+           
         },
 
         methods:{
@@ -81,12 +84,10 @@
                 }
             },
             yes(){
-                console.log(1);
                 this.isYes = 1;
 
             },
             no(){
-                console.log(0);
                 this.isYes = 0;
             }
         }

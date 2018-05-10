@@ -32,7 +32,7 @@
         data(){
             return {
                 active:1,
-                total:3,
+                total:0,
                 show:false
             }
         },
