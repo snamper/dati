@@ -12,8 +12,13 @@ export default {
 </script>
 
 <style>
+*{
+    box-sizing: border-box;
+}
+html{
+    font-family: 'PingFang sc','STHeitiSC-Light','Helvetica-Light',arial,sans-serif;
+}
 #app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;

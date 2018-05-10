@@ -27,7 +27,7 @@
     .wrap{
         .fixed();
         background-image: url('../assets/image/bg.png');
-        background-size: cover;
+        background-size: 100% 100%;
         background-repeat: no-repeat;
             .bg{
                 .fixed();
@@ -36,7 +36,7 @@
                 background-repeat: no-repeat;
                 .start{
                     position: absolute;
-                    top:60%;
+                    top:70%;
                     left: 50%;
                     transform: translateX(-50%);
                     display: inline-block;
