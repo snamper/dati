@@ -18,7 +18,11 @@
             <div class="isModel" v-if='show'>
                 <div class="item_wrap">
                     <ul>
-                        <li class="active" v-for='n in total'>{{n}}</li>
+                        <template v-for='(n,index) in total'>
+                            <li
+                                :class="{active:isActive.indexOf(index+1)>-1}"
+                            >{{n}}</li>
+                        </template>
                     </ul>
                 </div>
             </div>
@@ -27,13 +31,34 @@
 </template>
 
 <script>
+    import axios from 'axios'
     export default {
         name:'subject',
         data(){
             return {
                 active:1,
                 total:0,
-                show:false
+                show:false,
+                high:[
+                    {
+                        index:1
+                    },
+                    {
+                        index:2
+                    },
+                    {
+                        index:4
+                    }
+                ]
+            }
+        },
+        computed:{
+            isActive(){
+                let arr = this.high.map(item=>{
+                    return item.index
+                })
+                return arr
+
             }
         },
         methods:{
@@ -46,6 +71,18 @@
             // 显示答题的题目
             showModel(){
                 this.show = !this.show
+                this._getChecked();
+                // this.isActive();
+            },
+            _getChecked(){
+                axios.get("api/Home/Index/responseAll").then(res=>{
+                    console.log(res.data)
+                    // this.$nextTick(()=>{
+                    //     this.high = res.data
+                    // })
+                }).catch(err=>{
+                    console.log(err)
+                })
             }
         }
     }

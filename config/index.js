@@ -17,7 +17,15 @@ module.exports = {
             pathRewrite:{
                 '^/api':''
             }
+        },
+        '/ap':{
+            target:'http://192.168.120.84',
+            changeOrigin:true,
+            pathRewrite:{
+                '^/ap':''
+            }
         }
+
     },
 
     // Various Dev Server settings

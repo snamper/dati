@@ -37,13 +37,19 @@
         data(){
             return {
                 currenType:{
-                    id:1
+                    id:8
                 },
+                //人格类型的数组 可以后期从后端读取这个数组然后这样数据就是活动的
                 type:['完美型','爱心型','成就型','自我型','理智型','疑惑型','快乐型','领袖型','和平型']
+
             }
         },
         created(){
-            
+            axios.get('api/Home/Index/over').then(res=>{
+                console.log(res);
+            }).catch(err=>{
+                console.log(err);
+            })
             // 进入页面的时候请求数据
             // 这个是根据后台传过来的数据动态设置类型的图片
             this.classMap =['perfect','love','achievement','self','rational','confusion','happy','leader','peace'];
