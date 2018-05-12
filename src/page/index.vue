@@ -1,18 +1,32 @@
 <template>
     <div class="wrap">
-        <div class="bg">
-            <!-- <a class="start" @click='start'></a> -->
-            <router-link to="/subject" class="start"></router-link>
+        <div class="bg" ref ='bg'>
+            <a class="start" @click='start'></a>
+            <!-- <router-link to="/subject" class="start"></router-link> -->
         </div>
     </div>
 </template>
 <script>
+    import axios from 'axios'
     export default {
         name:"index",
         methods:{
             start(){
                 this.$router.push('/subject')
+                // 调用后台的方法
+                axios.get('api/Home/Index/startRes').then(res=>{
+                    console.log(res);
+                }).catch(err=>{
+                })
             }
+        },
+        mounted(){
+            // 页面挂载的时候设置页面的高度
+            let H = document.documentElement.clientHeight ,
+                W =document.documentElement.clientWidth;
+            this.$refs.bg.style.height = H +'px'
+            
+
         }
     }
 </script>
@@ -30,13 +44,14 @@
         background-size: 100% 100%;
         background-repeat: no-repeat;
             .bg{
-                .fixed();
+                // .fixed();
+                width: 100%;
                 background-image: url('../assets/image/index_bg.png');
-                background-size: cover;
+                background-size: contain;
                 background-repeat: no-repeat;
                 .start{
                     position: absolute;
-                    top:70%;
+                    top:60%;
                     left: 50%;
                     transform: translateX(-50%);
                     display: inline-block;

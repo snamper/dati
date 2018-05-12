@@ -12,7 +12,7 @@
             <div class="left_wrap">
                 <h3>结果统计</h3>
                 <div class="type">
-                    <p>快乐型：</p>
+                    <!-- <p>快乐型：</p>
                     <p>完美型：</p>
                     <p>爱心型：</p>
                     <p>成就型：</p>
@@ -20,13 +20,16 @@
                     <p>理智型：</p>
                     <p>疑惑型：</p>
                     <p>领袖型：</p>
-                    <p>和平型：</p>
+                    <p>和平型：</p> -->
+                    <p v-for='value in dataType[0]'>{{value.name}}{{value.count}}</p>
                 </div>
             </div>
             <div class="right_wrap">
                 <i class="icon" :class='classMap[currenType.id-1]'></i>
+                <!-- <a href="#">重新测试</a> -->
             </div>
         </div>
+        <!-- 进入页面的动画 -->
     </div>
 </template>
 
@@ -37,16 +40,20 @@
         data(){
             return {
                 currenType:{
-                    id:8
+                    id:0
                 },
                 //人格类型的数组 可以后期从后端读取这个数组然后这样数据就是活动的
-                type:['完美型','爱心型','成就型','自我型','理智型','疑惑型','快乐型','领袖型','和平型']
+                type:['完美型','爱心型','成就型','自我型','理智型','疑惑型','快乐型','领袖型','和平型'],
+                dataType:{}//从后端读出统计的数据
 
             }
         },
         created(){
             axios.get('api/Home/Index/over').then(res=>{
-                console.log(res);
+                console.log(res.data);
+                this.dataType = res.data ;
+                //这里后端给的数据是字符串的 按照道理应该是判断是否是不是在进行转换，这里直接偷懒使用Number()
+                this.currenType.id  = Number(res.data[1])
             }).catch(err=>{
                 console.log(err);
             })

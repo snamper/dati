@@ -4,11 +4,11 @@ import qs from 'qs' ;
 
 export default function postPerson(type,status,index){
     let url = 'api/Home/Index/response',
-        q_id =type,
+        id =type,
         state = status ,
         data = {
             index,index,
-            q_id:q_id,
+            id:id,
             state:state
         };
     return axios({
