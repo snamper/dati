@@ -3,7 +3,7 @@ import axios from 'axios' ;
 import qs from 'qs' ;
 
 export default function postPerson(type,status,index){
-    let url = 'api/Home/Index/response',
+    let url = '/api/Home/Index/response',
         id =type,
         state = status ,
         data = {

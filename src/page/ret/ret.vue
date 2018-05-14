@@ -26,8 +26,11 @@
             </div>
             <div class="right_wrap">
                 <i class="icon" :class='classMap[currenType.id-1]'></i>
-                <!-- <a href="#">重新测试</a> -->
             </div>
+        </div>
+        <!-- 重新测试 -->
+        <div class="agin_wrap" >
+            <a class="agin" @click='reStart()'>重新测试</a>
         </div>
         <!-- 进入页面的动画 -->
     </div>
@@ -49,7 +52,7 @@
             }
         },
         created(){
-            axios.get('api/Home/Index/over').then(res=>{
+            axios.get('/api/Home/Index/over').then(res=>{
                 console.log(res.data);
                 this.dataType = res.data ;
                 //这里后端给的数据是字符串的 按照道理应该是判断是否是不是在进行转换，这里直接偷懒使用Number()
@@ -60,12 +63,40 @@
             // 进入页面的时候请求数据
             // 这个是根据后台传过来的数据动态设置类型的图片
             this.classMap =['perfect','love','achievement','self','rational','confusion','happy','leader','peace'];
+        },
+        methods:{
+            reStart(){
+                axios.get('/api/Home/Index/index1').then(res=>{
+                    axios.get('/api/Home/Index/startRes').then(res=>{
+                        // console.log(res);
+                    }).catch(err=>{
+                    })
+                    this.$router.push('/subject')
+                }).catch()
 
+
+            }
         }
     }
 </script>
 
 <style lang="less" scoped>
+    .agin_wrap{
+        margin-top: 1rem;
+        padding: 0 3.7rem;
+        text-align: center;
+        .agin{
+            display: inline-block;
+            margin-top: 1rem;
+            font-size: 1.5rem;
+            color: #fff;
+            background-color: #45ff2c;
+            width: 9rem;
+            height: 3rem;
+            line-height: 3rem;
+            border-radius: 1.5rem;
+        }
+    }
     .bg(@url){
         background-image:url('../../assets/image/@{url}.png')
     }

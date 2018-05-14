@@ -61,7 +61,7 @@
                     this.$emit('totalNum',this.content_list.length)
                 })
             }).catch(err=>{
-                alert('抱歉，暂时没有题目！')
+                Toast.fail('没有题目！');
             })
             this._getStatus(this.index+1)
             // axios.post('api/Home/Index/next',{
@@ -77,7 +77,7 @@
         methods:{
             //下一题
             add(){
-                console.log(this.index);
+                // console.log(this.index);
                 let length = this.content_list.length ;
 
                 if(this.index=== length-1){

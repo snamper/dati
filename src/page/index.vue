@@ -10,12 +10,19 @@
     import axios from 'axios'
     export default {
         name:"index",
+        created(){
+            axios.get('/api/Home/Index/index1').then(res=>{
+                // console.log(res);
+            }).catch(err=>{
+                console.log(err);
+            })
+        },
         methods:{
             start(){
                 this.$router.push('/subject')
                 // 调用后台的方法
-                axios.get('api/Home/Index/startRes').then(res=>{
-                    console.log(res);
+                axios.get('/api/Home/Index/startRes').then(res=>{
+                    // console.log(res);
                 }).catch(err=>{
                 })
             }
@@ -25,7 +32,7 @@
             let H = document.documentElement.clientHeight ,
                 W =document.documentElement.clientWidth;
             this.$refs.bg.style.height = H +'px'
-            
+
 
         }
     }

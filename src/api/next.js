@@ -4,7 +4,7 @@ import qs from 'qs'
 // 上一步下一步的函数
 
 export default function next (index){
-    let url = 'api/Home/Index/next',
+    let url = '/api/Home/Index/next',
     data ={
         index:index
     }

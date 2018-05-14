@@ -14,7 +14,7 @@
                 <i></i>
                 {{active}}/{{total}}
             </a>
-            <a class="submit" @click="$router.push('result')">提交</a>
+            <a class="submit" @click="_submit()">提交</a>
         </div>
         <!-- model -->
         <div class="dialog_modal">
@@ -48,8 +48,9 @@
                 active:1,
                 total:0,
                 show:false,
-                flag:true,//防止在模态框关闭的时候点击触发再次显示模态框
-                high:[]//高亮显示的数组
+                flag:false,//防止在模态框关闭的时候点击触发再次显示模态框
+                high:[],//高亮显示的数组
+
             }
         },
         computed:{
@@ -63,7 +64,7 @@
             }
         },
         created(){
-            // this._getChecked();
+
         },
         methods:{
             changeNum(res){
@@ -89,11 +90,12 @@
             },
             // 获取到那些是已经做过的题目
             _getChecked(){
-                axios.get("api/Home/Index/responseAll").then(res=>{
-                    // console.log(res.data)
-                    this.$nextTick(()=>{
-                        this.high = res.data
-                    })
+                axios.get("/api/Home/Index/responseAll").then(res=>{
+                    // this.$nextTick(()=>{
+                    //     this.high = res.data ;
+                    //     // this.flag = true
+                    // })
+                    this.high = res.data ;
                 }).catch(err=>{
                     Toast.fail('网络错误！');
 
@@ -115,8 +117,40 @@
                 }).catch(() => {
                     // on cancel
                 });
+            },
+            _submit(){
+                var current ;
+                axios.get("/api/Home/Index/responseAll").then(res=>{
+                    current = res.data.length
+                    if(!this.flag){
+                        Dialog.confirm({
+                            title: '题目进度',
+                            message: `当前做了${current}题,总共${this.total}题,确认提交吗？`
+                        }).then(() => {
+                            // 确定然后提交代码
+                            this.$router.push('result');
+                        }).catch(() => {
+                            //取消不做任何的操作
+                        });
+
+                    }
+                }).catch(err=>{
+
+                })
+                // this.$router.push('result');
+                //弹窗询问用户是否确认提交，当题目没有做 完的时候
+                 // this._getChecked();//重新拉去数据，防止当前做的题目为空
+
+
             }
-        }
+        },
+        // 再次进入页面的时候清空数据
+        // beforeRouteEnter(to,from,next) {
+        //     if(from.name==='result'){
+        //         location.reload()
+        //     }
+        //     next();
+        // }
     }
 </script>
 <style lang="less" src='./index.less'></style>
